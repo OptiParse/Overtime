@@ -218,8 +218,46 @@ contract Overtime {
         emit PaymentProcessed(workerId, amount);
     }
 
-    function allocateTasks() external onlyAdmin {
-        // Allocation logic here
+    function allocateTasks(uint256[] memory sortedTaskIDs, uint256[] memory sortedWorkerIDs) external onlyAdmin {
+    uint256[] memory unassignedTasks;
+    uint256 unassignedCount = 0;
+
+    for (uint256 i = 0; i < sortedTaskIDs.length; i++) {
+        uint256 taskId = sortedTaskIDs[i];
+        bool taskAssigned = false;
+
+        for (uint256 j = 0; j < sortedWorkerIDs.length; j++) {
+            uint256 workerId = sortedWorkerIDs[j];
+
+            if (workers[workerId].expertiseLevel >= tasks[taskId].expertiseLevel) {
+                if (tasks[taskId].divisible) {
+                    uint256 hoursAllocated = (workers[workerId].hoursAvailable > tasks[taskId].timeRequired)?(tasks[taskId].timeRequired):(workers[workerId].hoursAvailable);
+                    tasks[taskId].timeRequired -= hoursAllocated;
+                    workers[workerId].hoursAvailable -= hoursAllocated;
+
+                    if (tasks[taskId].timeRequired == 0) {
+                        tasks[taskId].workerID = workerId;
+                        taskAssigned = true;
+                        break;
+                    }
+                } else {
+                    if (workers[workerId].hoursAvailable >= tasks[taskId].timeRequired) {
+                        tasks[taskId].workerID = workerId;
+                        workers[workerId].hoursAvailable -= tasks[taskId].timeRequired;
+                        taskAssigned = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (!taskAssigned) {
+            unassignedTasks[unassignedCount] = taskId;
+            unassignedCount++;
+        }
     }
+
+    // Handle or return unassignedTasks as needed
+}
     
 }
