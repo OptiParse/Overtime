@@ -17,10 +17,13 @@ contract Overtime {
         uint256 expertiseLevel;
         uint256 minWage;
         address wallet;
+        uint256 totalWage;
         uint256 taskID; //nil means unallocated
     }
 
     Worker[] public workers;
+    mapping(address => uint256) Indx; //taskID to Indx
+
     uint256 workerIDs = 0; // number of workers
     uint256 constant nil = 1000000000000000; // using constant for unallocated value
 
@@ -30,8 +33,10 @@ contract Overtime {
             expertiseLevel: _expertiseLevel,
             minWage: _minWage,
             wallet: msg.sender,
+            totalWage: 0,
             taskID: nil
         }));
+        Indx[msg.sender] = workerIDs;
         workerIDs++;
     }
 
@@ -46,10 +51,12 @@ contract Overtime {
         bool divisible;
         uint256 workerID; // nil means unallocated
         bool completed;
+        bool inProgress; // Indicates if the task is in progress
+        uint256 workDone; // Tracks hours of work done on the task
+        uint256[] workersOnTask; //  (if divisible) Tracks worker IDs working on this task
     }
 
     Task[] public tasks;
-    mapping(uint256 => uint256) Indx; //taskID to taskIndex
     uint256 TaskIndx = 0;
     function addTask(
         uint256 _taskID,
@@ -70,6 +77,7 @@ contract Overtime {
         }
 
         uint256[] memory emptyarr;
+        uint256[] memory emptyarr2;
         tasks.push(Task({
             taskID : _taskID,
             timeRequired: _timeRequired,
@@ -80,14 +88,16 @@ contract Overtime {
             deadline: _deadline,
             divisible: _divisible,
             workerID: nil,
-            completed: false
+            completed: false,
+            inProgress: false,
+            workDone: 0,
+            workersOnTask : emptyarr2
         }));
-        Indx[_taskID] = TaskIndx; 
         TaskIndx++;
     }
 
     // Function to sort tasks
-    function sortTasks() public view returns (uint256[] memory) {
+    function sortTasks() private view returns (uint256[] memory) {
         uint256 taskCount = tasks.length;
         uint256[] memory uncompletedTaskIDs = new uint256[](taskCount);
         uint256 count = 0;
@@ -141,7 +151,7 @@ contract Overtime {
     }
 
     // Function to sort workers
-    function sortWorkers() public view returns (uint256[] memory) {
+    function sortWorkers() private view returns (uint256[] memory) {
         uint256 workerCount = workers.length;
         uint256[] memory unallocatedWorkerIDs = new uint256[](workerCount);
         uint256 count = 0;
@@ -185,20 +195,15 @@ contract Overtime {
 
         return sortedWorkerIDs;
     }
-
-    event TaskAssigned(uint256 taskId, uint256 workerId);
-    event TaskCompleted(uint256 taskId, uint256 workerId);
-    event PaymentProcessed(uint256 workerId, uint256 amount);
-
-    function allocateTask(uint256 taskId, uint256 workerId) external onlyAdmin {
-        allocateTaskToWorker(taskId, workerId);
-        emit TaskAssigned(taskId, workerId);
+    
+    function payWorker(uint256 workerId, uint256 amount) internal {
+        address workerWallet = workers[workerId].wallet;
+        // require(address(this).balance >= amount, "Insufficient funds in contract");
+        workers[workerId].totalWage += amount;
+        // payable(workerWallet).transfer(amount); // we can similarly use the real ethers as well
+        // emit PaymentProcessed(workerId, amount);
     }
 
-    function completeTask(uint256 taskId) external {
-        markTaskAsCompleted(taskId);
-        emit TaskCompleted(taskId, tasks[taskId].workerID);
-    }
     function allocateTaskToWorker(uint256 taskId, uint256 workerId) internal {
         workers[workerId].taskID = taskId;
         tasks[taskId].workerID = workerId;
@@ -211,53 +216,57 @@ contract Overtime {
         workers[workerId].taskID = nil;
         payWorker(workerId, tasks[taskId].wage);
     }
-    function payWorker(uint256 workerId, uint256 amount) internal {
-        address workerWallet = workers[workerId].wallet;
-        require(address(this).balance >= amount, "Insufficient funds in contract");
-        payable(workerWallet).transfer(amount);
-        emit PaymentProcessed(workerId, amount);
-    }
 
-    function allocateTasks(uint256[] memory sortedTaskIDs, uint256[] memory sortedWorkerIDs) external onlyAdmin {
-    uint256[] memory unassignedTasks;
-    uint256 unassignedCount = 0;
+    function allocateTasks() external onlyAdmin {
+        uint256[] memory sortedTaskIDs = sortTasks();
+        uint256[] memory sortedWorkerIDs = sortWorkers();
 
-    for (uint256 i = 0; i < sortedTaskIDs.length; i++) {
-        uint256 taskId = sortedTaskIDs[i];
-        bool taskAssigned = false;
+        for (uint256 i = 0; i < sortedTaskIDs.length; i++) {
+            uint256 taskId = sortedTaskIDs[i];
+            bool taskAssigned = false;
 
-        for (uint256 j = 0; j < sortedWorkerIDs.length; j++) {
-            uint256 workerId = sortedWorkerIDs[j];
+            for (uint256 j = 0; j < sortedWorkerIDs.length; j++) {
+                uint256 workerId = sortedWorkerIDs[j];
 
-            if (workers[workerId].expertiseLevel >= tasks[taskId].expertiseLevel) {
-                if (tasks[taskId].divisible) {
-                    uint256 hoursAllocated = (workers[workerId].hoursAvailable > tasks[taskId].timeRequired)?(tasks[taskId].timeRequired):(workers[workerId].hoursAvailable);
-                    tasks[taskId].timeRequired -= hoursAllocated;
-                    workers[workerId].hoursAvailable -= hoursAllocated;
+                if (workers[workerId].expertiseLevel >= tasks[taskId].expertiseLevel) {
+                    if (tasks[taskId].divisible) {
+                        uint256 hoursAllocated = (workers[workerId].hoursAvailable > tasks[taskId].timeRequired)?(tasks[taskId].timeRequired):(workers[workerId].hoursAvailable);
+                        tasks[taskId].timeRequired -= hoursAllocated;
+                        workers[workerId].hoursAvailable -= hoursAllocated;
 
-                    if (tasks[taskId].timeRequired == 0) {
-                        tasks[taskId].workerID = workerId;
-                        taskAssigned = true;
-                        break;
-                    }
-                } else {
-                    if (workers[workerId].hoursAvailable >= tasks[taskId].timeRequired) {
-                        tasks[taskId].workerID = workerId;
-                        workers[workerId].hoursAvailable -= tasks[taskId].timeRequired;
-                        taskAssigned = true;
-                        break;
+                        if (tasks[taskId].timeRequired == 0) {
+                            tasks[taskId].workerID = workerId;
+                            taskAssigned = true;
+                            break;
+                        }
+                    } else {
+                        if (workers[workerId].hoursAvailable >= tasks[taskId].timeRequired) {
+                            tasks[taskId].workerID = workerId;
+                            workers[workerId].hoursAvailable -= tasks[taskId].timeRequired;
+                            taskAssigned = true;
+                            break;
+                        }
                     }
                 }
             }
         }
-
-        if (!taskAssigned) {
-            unassignedTasks[unassignedCount] = taskId;
-            unassignedCount++;
-        }
     }
 
-    // Handle or return unassignedTasks as needed
-}
-    
+    function checkStatus() external view onlyAdmin returns (Task[] memory) {
+        uint256 taskCount = tasks.length;
+        Task[] memory taskStatusList = new Task[](taskCount);
+
+        for (uint256 i = 0; i < taskCount; i++) {
+            taskStatusList[i] = tasks[i];
+        }
+        return taskStatusList;
+    }  
+
+    function checkWallet() public returns (uint256) { //returns amount of wage earned by worker through the contract
+        uint256 WorkerID = Indx[msg.sender];
+        if(WorkerID > 0){
+            return workers[WorkerID].totalWage;
+        }
+        return 0;
+    }    
 }
