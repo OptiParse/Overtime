@@ -3,6 +3,7 @@ import Profile from "views/examples/Profile.js";
 import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
 import Icons from "views/examples/Icons.js";
+import AddTask from "views/examples/AddTask.js";
 
 var routes = [
   {
@@ -31,6 +32,13 @@ var routes = [
     name: "Unassigned Tasks",
     icon: "fas fa-percent text-blue",
     component: <Icons />,
+    layout: "/admin",
+  },
+  {
+    path: "/addtask",
+    name: "Add Task",
+    icon: "fas fa-add text-purple",
+    component: <AddTask />,
     layout: "/admin",
   },
   {

@@ -111,7 +111,7 @@ const Index = (props) => {
                     <h6 className="text-uppercase text-muted ls-1 mb-1">
                       Performance
                     </h6>
-                    <h2 className="mb-0">Total orders</h2>
+                    <h2 className="mb-0">Total Tasks</h2>
                   </div>
                 </Row>
               </CardHeader>
@@ -127,7 +127,7 @@ const Index = (props) => {
             </Card>
           </Col>
         </Row>
-        <Row className="mt-5">
+        <Row className="mt-5 w-full">
           <Col className="mb-5 mb-xl-0" xl="8">
             <Card className="shadow">
               <CardHeader className="border-0">
@@ -204,8 +204,8 @@ const Index = (props) => {
               </Table>
             </Card>
           </Col>
-          <Col xl="4">
-            <Card className="shadow">
+          {/* <Col xl="4">
+             <Card className="shadow">
               <CardHeader className="border-0">
                 <Row className="align-items-center">
                   <div className="col">
@@ -310,8 +310,8 @@ const Index = (props) => {
                   </tr>
                 </tbody>
               </Table>
-            </Card>
-          </Col>
+            </Card> 
+          </Col> */}
         </Row>
       </Container>
     </>
