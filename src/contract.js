@@ -1,7 +1,7 @@
-const express = require('express');
-const Web3 = require('web3');
+import express, { json } from 'express';
+import Web3 from 'web3';
 const app = express();
-app.use(express.json());
+app.use(json());
 
 const web3 = new Web3('https://your-ethereum-node-url'); // e.g., Infura or Alchemy URL
 const contractABI = [/* ABI array from your compiled contract */];
