@@ -1,0 +1,68 @@
+.register-box {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.register {
+  margin-top: 25px;
+  background: #171521;
+  padding: 25px;
+  border-radius: 15px;
+  min-width: 400px;
+  box-shadow: 0 0 10px #000;
+}
+
+.field {
+  padding: 10px 20px;
+  margin: 10px 0;
+  width: 100%;
+  background-color: rgb(0, 11, 21);
+  border-radius: 5px;
+}
+
+.address .value {
+  padding: 15px 15px;
+  background: #2d2941;
+  border-radius: 5px;
+  margin-top: 10px;
+  transition: 300ms;
+}
+
+.address .value:hover {
+  background: #383351;
+}
+
+.data-title {
+  font-size: small;
+  color: #d0d0d0;
+  width: 100%;
+  padding: 5px 0;
+}
+
+input {
+  width: 100%;
+  outline: none;
+  padding: 8px;
+  font-size: large;
+  border: 0;
+  background: transparent;
+  color: #fff;
+}
+
+.submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 35px 0;
+  font-weight: bolder;
+  background: #634fe6;
+  transition: 300ms;
+}
+
+.submit:hover {
+  background: #806dff;
+}

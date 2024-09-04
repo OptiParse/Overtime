@@ -1,7 +1,7 @@
 .taskbox {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
   gap: 25px 15px;
   padding: 15px 35px;

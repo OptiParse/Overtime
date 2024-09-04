@@ -4,7 +4,7 @@
   background: #171521;
 
   flex-grow: 1;
-  border-radius: 0 15px 15px 0;
+  /* border-radius: 0 15px 15px 0; */
 }
 
 .data-cards {

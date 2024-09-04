@@ -1,14 +1,15 @@
 .taskcard {
-  background: #0000002a;
+  background: #0b797d;
   padding: 25px 35px;
   border-radius: 15px;
-  color: #fff;
+  color: #ffffff;
   box-shadow: 0 0 3px #000;
-  transition: 300ms;
+  transition: 180ms;
 }
 
 .taskcard:hover {
-  box-shadow: 0 0 10px #000;
+  box-shadow: 0 10px 10px #000;
+  transform: translateY(-10px);
 }
 
 .taskcard > div {
@@ -98,7 +99,7 @@ flex-grow: 1;
 .taskcard .progress-f {
   position: absolute;
   width: 76%;
-  background: #4ab178;
+  background: #1ee075;
   height: 10px;
   border-radius: 10px;
 }
