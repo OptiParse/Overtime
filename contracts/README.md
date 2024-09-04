@@ -1,6 +1,6 @@
 # Solidity Contract
 
-THE ACTUAL CONTRACT IS DEPLOYED ON SEPOLIA ETHER BLOCKCHAIN at [this link](https://sepolia.etherscan.io/address/0xeF32811A7a295478e56f4c906BF6C4B38D7941cf) by [thirdweb](https://thirdweb.com/dashboard) ; but it still needs sufficient sepolia ether to run it for demonstration purposes so we run it locally.
+THE ACTUAL CONTRACT IS DEPLOYED ON SEPOLIA ETHER BLOCKCHAIN at [this link](https://sepolia.etherscan.io/address/0xeF32811A7a295478e56f4c906BF6C4B38D7941cf) by [thirdweb](https://thirdweb.com/dashboard) ; but it still needs sufficient sepolia ether to run it for demonstration purposes so we run it locally. It's source code can also be seen on the internet at https://sepolia.etherscan.io/address/0xeF32811A7a295478e56f4c906BF6C4B38D7941cf#code.
 
 ## Deploying Contracts
 
