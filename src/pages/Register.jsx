@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../assets/css/Register.css";
 import { Slider } from "antd";
 import { Alert } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const marks = {
   1: {
@@ -37,6 +38,8 @@ const marks = {
 };
 
 export default function Register() {
+
+  const naviagte = useNavigate();
   const [addr, setAddr] = useState("");
   const [hours, setHours] = useState(7);
   const [wages, setWages] = useState(23);
@@ -49,6 +52,8 @@ export default function Register() {
     if(!wages) { setError("Enter Working Wages"); return; };
     if(!expertise) { setError("Enter Expertise"); return; };
     setError("");
+
+    naviagte("/dashboard");
   }
 
   return (
@@ -74,7 +79,7 @@ export default function Register() {
                       setError(err);
                     }
                   });
-                if (!accounts) return;
+                // if (!accounts) return;
                 const account = accounts[0];
                 setAddr(account);
                 setError("");

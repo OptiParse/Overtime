@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
+import Hero from "./pages/Hero.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import CompletedTasks from "./pages/CompletedTasks.jsx";
 import OngoingTasks from "./pages/OngoingTasks.jsx";
@@ -17,6 +18,7 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Hero />} />
           <Route path="/dashboard" element={<AdminDashboard />} />
           <Route path="/completedtasks" element={<CompletedTasks />} />
           <Route path="/ongoingtasks" element={<OngoingTasks />} />

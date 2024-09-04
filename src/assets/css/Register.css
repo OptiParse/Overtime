@@ -61,6 +61,7 @@ input {
   font-weight: bolder;
   background: #634fe6;
   transition: 300ms;
+  margin-top: 50px;
 }
 
 .submit:hover {

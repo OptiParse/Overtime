@@ -31,12 +31,15 @@
 
 .add-con {
   position: fixed;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
+  top: 0;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background: #1e1c2c;
 }
 
 .add-box {
@@ -85,16 +88,18 @@ input {
   color: #fff;
 }
 
-.submit {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 35px 0;
+.dead {
+  padding-bottom: 20px !important;
+}
+
+.exit-add-task {
+  padding: 15px;
   font-weight: bolder;
   background: #634fe6;
   transition: 300ms;
+  margin-top: 50px;
+  border-radius: 15px;
 }
-
-.submit:hover {
+.exit-add-task:hover {
   background: #806dff;
 }
