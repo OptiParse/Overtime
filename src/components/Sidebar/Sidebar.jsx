@@ -41,7 +41,7 @@ export default function Sidebar(prop) {
           badge={10}
         />}
         <NavTab
-          to="/logout"
+          to="/register"
           icon={HiUserMinus}
           title="logout"
         />
