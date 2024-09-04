@@ -1,26 +1,6 @@
-## Getting Started
+# Solidity Contract
 
-Create a project using this example:
-
-```bash
-npx thirdweb create --contract --template hardhat-javascript-starter
-```
-
-You can start editing the page by modifying `contracts/Contract.sol`.
-
-To add functionality to your contracts, you can use the `@thirdweb-dev/contracts` package which provides base contracts and extensions to inherit. The package is already installed with this project. Head to our [Contracts Extensions Docs](https://portal.thirdweb.com/contractkit) to learn more.
-
-## Building the project
-
-After any changes to the contract, run:
-
-```bash
-npm run build
-# or
-yarn build
-```
-
-to compile your contracts. This will also detect the [Contracts Extensions Docs](https://portal.thirdweb.com/contractkit) detected on your contract.
+THE ACTUAL CONTRACT IS DEPLOYED ON SEPOLIA ETHER BLOCKCHAIN at [this link](https://sepolia.etherscan.io/address/0xeF32811A7a295478e56f4c906BF6C4B38D7941cf) by [thirdweb](https://thirdweb.com/dashboard) ; but it still needs sufficient sepolia ether to run it for demonstration purposes so we run it locally.
 
 ## Deploying Contracts
 
@@ -41,7 +21,3 @@ npm run release
 # or
 yarn release
 ```
-
-## Join our Discord!
-
-For any questions, suggestions, join our discord at [https://discord.gg/thirdweb](https://discord.gg/thirdweb).
