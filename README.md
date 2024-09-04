@@ -2,19 +2,22 @@
 
 Takneek 2024 PS (overtime) solved by Hall 3
 
-# Installation
+## Installation
+
+To install the Overtime project, follow these steps:
 
 ```bash
 $ git clone https://github.com/OptiParse/Overtime.git
 $ cd Overtime
 $ npm install
-$ npm start
+$ npm run dev
 ```
+
 
 ### Overtime Smart Contract Documentation
 
 **Overview:**
-The `Overtime` smart contract is designed to manage and allocate tasks among registered workers based on their availability, expertise, and wage expectations. The contract allows an admin to add tasks, register workers, and automatically allocate tasks to suitable workers. This contract is particularly useful for scenarios where tasks need to be distributed among multiple workers with varying expertise levels, and it supports both divisible and non-divisible tasks.
+The `Overtime` smart contract manages and allocates tasks among registered workers based on their availability, expertise, and wage expectations. It supports both divisible and non-divisible tasks, making it suitable for scenarios where tasks need to be distributed among multiple workers with varying expertise levels.
 
 **Key Components:**
 
@@ -65,3 +68,19 @@ The `Overtime` smart contract is designed to manage and allocate tasks among reg
 - `simulationFactor`: Adjusts the speed at which time moves for testing purposes.
 - `taskBatchSize` and `workerBatchSize`: Define batch sizes for task and worker allocation, respectively.
 - `nil`: A constant used to indicate an unallocated task for a worker.
+
+## Project Structure
+
+The project is organized as follows:
+
+- `main.jsx`: The entry point of the application, which renders the root component.
+- `assets/`: Directory containing static assets like CSS files.
+- `pages/`: Contains the main components/pages of the application.
+  - `AdminDashboard.jsx`: The admin dashboard page.
+  - `CompletedTasks.jsx`: Displays tasks that have been completed.
+  - `UserPage.jsx`: The user dashboard page.
+  - `OngoingTasks.jsx`: Displays tasks that are currently ongoing.
+  - `UnassignedTasks.jsx`: Displays tasks that have not been assigned yet.
+  - `AllTasks.jsx`: Displays all tasks (note: this currently imports the CompletedTasks component, which may be intentional or a mistake to be reviewed).
+  - `Logout.jsx`: Handles the logout process.
+  - `Register.jsx`: Registration page for new users.
