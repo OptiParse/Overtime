@@ -12,6 +12,12 @@ $ cd Overtime
 $ npm install
 $ npm run dev
 ```
+```
+$ truffle init
+$ truffle compile
+$ truffle migrate
+```
+Add your own infura key and mnemonic or run locally using Ganache.
 
 
 ### Overtime Smart Contract Documentation
