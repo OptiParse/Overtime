@@ -16,6 +16,8 @@ $ npm run dev
 
 ### Overtime Smart Contract Documentation
 
+Deployed At : https://overtime.pages.dev/
+
 **Overview:**
 The `Overtime` smart contract manages and allocates tasks among registered workers based on their availability, expertise, and wage expectations. It supports both divisible and non-divisible tasks, making it suitable for scenarios where tasks need to be distributed among multiple workers with varying expertise levels.
 
