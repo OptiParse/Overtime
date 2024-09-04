@@ -1,0 +1,89 @@
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 40px 70px;
+  color: #ffffff;
+  font-size: 31px;
+  font-weight: bolder;
+}
+
+.header img {
+  height: 40px;
+  border: 1px solid #806dff;
+  box-shadow: 0 0 10px #000;
+  border-radius: 50%;
+  text-decoration: none;
+}
+
+.sidebar {
+  height: 100%;
+  min-width: 300px;
+
+  background: #1a1c27;
+  width: max-content;
+  
+  padding: 10px 0;
+  border-radius: 15px 0 0 15px;
+  text-decoration: none;
+}
+
+.sidebar .tabs {
+  display: flex;
+  flex-direction: column;
+
+  border-top: 1px solid #494949;
+  border-bottom: 1px solid #494949;
+  padding: 10px;
+}
+
+.sidebar .header span {
+  text-decoration: none;
+}
+
+.sidebar .tabs a {
+  padding: 20px;
+  width: 100%;
+  color: #dedede;
+  text-decoration: none;
+  text-transform: capitalize;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 10px 0;
+  border-radius: 15px;
+  font-weight: bold;
+  transition: 400ms;
+}
+
+.sidebar .tabs a .tab-title {
+  margin-left: 15px;
+  flex-grow: 2;
+}
+
+.sidebar .tabs a:hover {
+  background: #2f2f4b;
+}
+
+.sidebar .tabs a:hover .tab-title {
+  color: #806dff;
+}
+
+.sidebar .tabs a:hover svg {
+  color: #806dff;
+}
+
+.active-tab {
+  color: #806dff;
+}
+
+.sidebar .tabs a .tab-badge {
+  display: flex;
+  justify-content: center;
+  padding: 5px 10px;
+  border-radius: 15px;
+  background: #4ab178;
+  color: #e0f1e8;
+  width: max-content;
+}

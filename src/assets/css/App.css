@@ -1,0 +1,60 @@
+.main {
+  height: 100%;
+  min-height: 100vh;
+  background: #171521;
+
+  flex-grow: 1;
+  border-radius: 0 15px 15px 0;
+}
+
+.data-cards {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 40px 10px 20px 10px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.data-cards .data-card {
+  transition: 300ms;
+  display: grid;
+  grid-template-columns: max-content max-content;
+  grid-template-rows: 1fr 1fr;
+  padding: 25px 15px 25px 50px;
+  background: #1c1e2924;
+  border-radius: 15px;
+  color: #fff;
+  border: 5px solid #ffffff12;
+}
+
+.data-card-title {
+  font-size: small;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+}
+
+.data-card-data {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: x-large;
+  font-weight: bolder;
+}
+
+.data-cards .data-card .data-card-icon {
+  grid-row: 1 / span 2;
+  grid-column: 2 / 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 40px;
+  scale: 1.6;
+}
+
+.data-card:hover {
+  box-shadow: 0 0 10px #000;
+}
