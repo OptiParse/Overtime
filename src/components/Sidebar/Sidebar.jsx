@@ -8,7 +8,7 @@ import {
 } from "react-icons/hi2";
 import "../../assets/css/Sidebar.css"
 
-export default function Sidebar() {
+export default function Sidebar(prop) {
   return (
     <div className="sidebar">
       <div className="header">
@@ -33,12 +33,13 @@ export default function Sidebar() {
           title="pending tasks"
           badge={30}
         />
+        {!prop.isAdmin && 
         <NavTab
           to="/unassignedtasks"
           icon={HiMiniArchiveBoxXMark}
           title="unassigned tasks"
           badge={10}
-        />
+        />}
         <NavTab
           to="/logout"
           icon={HiUserMinus}

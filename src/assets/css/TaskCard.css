@@ -8,7 +8,7 @@
 }
 
 .taskcard:hover {
-  box-shadow: 0 10px 10px #000;
+  box-shadow: 0 10px 0 1px #000;
   transform: translateY(-10px);
 }
 

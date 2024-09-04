@@ -1,10 +1,10 @@
-import Sidebar from "./components/Sidebar/Sidebar";
-import Header from "./components/Header";
+import Sidebar from "../components/Sidebar/Sidebar";
+import Header from "../components/Header";
 
 function App() {
   return (
     <>
-      <Sidebar />
+      <Sidebar isAdmin={false} />
       <div className="main">
         <Header />
       </div>
